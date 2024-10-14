@@ -136,7 +136,7 @@ Organizations:
 
         AnchorPeers:
             - Host: peer0.org5.example.com
-              Port: 11051
+              Port: 12051
 
 ################################################################################
 #

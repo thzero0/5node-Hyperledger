@@ -16,6 +16,10 @@ networks:
       name: first-network
 
 services:
+
+# =========================
+#  ORDERER CONFIGURATION
+# =========================
   orderer5.example.com:
     extends:
       file: base/peer-base.yaml
@@ -33,19 +37,70 @@ services:
     ports:
     - 11050:11050
 
+
+
+# =========================
+# PEER 0 DATABASE & SERVICE
+# =========================
+  couchdb_Org5_peer0:
+    container_name: couchdb_Org5_peer0
+    image: couchdb:3.3.3
+    labels:
+      service: hyperledger-fabric
+    environment:
+      - COUCHDB_USER=admin
+      - COUCHDB_PASSWORD=adminpw
+    ports:
+      - "9984:5984"
+    networks:
+      - byfn 
+
   peer0.org5.example.com:
+    environment:
+      - CORE_LEDGER_STATE_STATEDATABASE=CouchDB
+      - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=couchdb_Org5_peer0:5984
+      - CORE_LEDGER_STATE_COUCHDBCONFIG_USERNAME=admin
+      - CORE_LEDGER_STATE_COUCHDBCONFIG_PASSWORD=adminpw
     container_name: peer0.org5.example.com
     extends:
       file:  base/docker-compose-base.yaml
       service: peer0.org5.example.com
     networks:
       - byfn
+    depends_on:
+      - couchdb_Org5_peer0
+    
+
+
+
+# =========================
+# PEER 1 DATABASE & SERVICE
+# =========================
+  couchdb_Org5_peer1:
+    container_name: couchdb_Org5_peer1
+    image: couchdb:3.3.3
+    labels:
+      service: hyperledger-fabric
+    environment:
+      - COUCHDB_USER=admin
+      - COUCHDB_PASSWORD=adminpw
+    ports:
+      - "9985:5984"
+    networks:
+      - byfn 
 
   peer1.org5.example.com:
+    environment:
+      - CORE_LEDGER_STATE_STATEDATABASE=CouchDB
+      - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=couchdb_Org5_peer1:5984
+      - CORE_LEDGER_STATE_COUCHDBCONFIG_USERNAME=admin
+      - CORE_LEDGER_STATE_COUCHDBCONFIG_PASSWORD=adminpw
     container_name: peer1.org5.example.com
     extends:
       file:  base/docker-compose-base.yaml
       service: peer1.org5.example.com
     networks:
       - byfn
+    depends_on:
+      - couchdb_Org5_peer1
 
