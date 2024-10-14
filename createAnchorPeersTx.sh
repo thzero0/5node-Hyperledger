@@ -1,5 +1,5 @@
 
-./bin/configtxgen -profile SampleMultiNodeEtcdRaft -channelID mychannel -outputBlock ./channel-artifacts/genesis.block
+./bin/configtxgen -profile SampleMultiNodeEtcdRaft -channelID system-channel -outputBlock ./channel-artifacts/genesis.block
 
 ./bin/configtxgen -profile FiveOrgsChannel -outputCreateChannelTx ./channel-artifacts/channel.tx -channelID mychannel
 
