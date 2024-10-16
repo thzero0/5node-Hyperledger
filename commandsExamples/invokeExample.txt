@@ -1,3 +1,5 @@
+
+# This is an example to invoke a chaincode in a given channel
 docker exec cli peer chaincode invoke -o orderer3.example.com:9050 --tls true \
     --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer3.example.com/msp/tlscacerts/tlsca.example.com-cert.pem \
     -C mychannel \
