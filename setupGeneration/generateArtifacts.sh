@@ -1,3 +1,5 @@
+export FABRIC_CFG_PATH=../
+
 # Check and generate genesis block
 if [ ! -f ../channel-artifacts/genesis.block ]; then
     ../../bin/configtxgen -profile SampleMultiNodeEtcdRaft -channelID system-channel -outputBlock ../channel-artifacts/genesis.block
